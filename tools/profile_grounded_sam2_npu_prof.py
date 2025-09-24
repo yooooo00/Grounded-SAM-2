@@ -65,7 +65,8 @@ def run_step(
 
         # 框坐标转换并分割（decode）
         boxes = boxes * torch.tensor([w, h, w, h])
-        xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
+        # 转 numpy 后复制一份，避免 "not writable" 提示
+        xyxy = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy().copy()
         predictor.predict(
             point_coords=None, point_labels=None, box=xyxy, multimask_output=False
         )
@@ -73,32 +74,62 @@ def run_step(
 
 
 def _build_experimental_config(npu_prof):
-    """按文档推荐构建 ExperimentalConfig；兼容不同 CANN 版本参数。"""
-    # 目标配置（尽量完整，后续按签名过滤）
-    wanted = dict(
-        export_type=[
-            getattr(npu_prof.ExportType, "Text", None),
-            getattr(npu_prof.ExportType, "Db", None),
-        ],
-        profiler_level=getattr(npu_prof.ProfilerLevel, "Level0", None),
-        msprof_tx=False,
-        mstx_domain_include=[],
-        mstx_domain_exclude=[],
-        aic_metrics=getattr(npu_prof.AiCMetrics, "AiCoreNone", None),
-        l2_cache=False,
-        op_attr=False,
-        data_simplification=False,
-        record_op_args=False,
-        gc_detect_threshold=None,
-        host_sys=[
-            getattr(npu_prof.HostSystem, "CPU", None),
-            getattr(npu_prof.HostSystem, "MEM", None),
-        ],
-        sys_io=False,
-        sys_interconnection=False,
-    )
-    # 去除 None 项
-    wanted = {k: v for k, v in wanted.items() if v is not None}
+    """按文档推荐构建 ExperimentalConfig；兼容不同 CANN/torch-npu 版本。
+
+    注意：某些版本没有 HostSystem/AiCMetrics/ExportType 等枚举；必须在引用前判断。
+    同时，仅向 _ExperimentalConfig 传递其签名中存在的参数。
+    """
+    # 构造 export_type
+    export_types = []
+    if hasattr(npu_prof, "ExportType"):
+        if hasattr(npu_prof.ExportType, "Text"):
+            export_types.append(npu_prof.ExportType.Text)
+        if hasattr(npu_prof.ExportType, "Db"):
+            export_types.append(npu_prof.ExportType.Db)
+
+    # profiler_level
+    profiler_level = None
+    if hasattr(npu_prof, "ProfilerLevel") and hasattr(npu_prof.ProfilerLevel, "Level0"):
+        profiler_level = npu_prof.ProfilerLevel.Level0
+
+    # aic_metrics
+    aic_metrics = None
+    if hasattr(npu_prof, "AiCMetrics") and hasattr(npu_prof.AiCMetrics, "AiCoreNone"):
+        aic_metrics = npu_prof.AiCMetrics.AiCoreNone
+
+    # host_sys
+    host_sys = None
+    if hasattr(npu_prof, "HostSystem"):
+        vals = []
+        if hasattr(npu_prof.HostSystem, "CPU"):
+            vals.append(npu_prof.HostSystem.CPU)
+        if hasattr(npu_prof.HostSystem, "MEM"):
+            vals.append(npu_prof.HostSystem.MEM)
+        if vals:
+            host_sys = vals
+
+    # 目标配置（尽量完整），后续会按签名过滤未知字段
+    wanted = {
+        "msprof_tx": False,
+        "mstx_domain_include": [],
+        "mstx_domain_exclude": [],
+        "l2_cache": False,
+        "op_attr": False,
+        "data_simplification": False,
+        "record_op_args": False,
+        "gc_detect_threshold": None,
+        "sys_io": False,
+        "sys_interconnection": False,
+    }
+    if export_types:
+        wanted["export_type"] = export_types
+    if profiler_level is not None:
+        wanted["profiler_level"] = profiler_level
+    if aic_metrics is not None:
+        wanted["aic_metrics"] = aic_metrics
+    if host_sys is not None:
+        wanted["host_sys"] = host_sys
+
     # 过滤出 _ExperimentalConfig 支持的参数
     sig = inspect.signature(npu_prof._ExperimentalConfig)
     supported = {k: v for k, v in wanted.items() if k in sig.parameters}
@@ -203,4 +234,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
