@@ -1,0 +1,14 @@
+{
+  "模型": "Grounding DINO + SAM2（端到端）",
+  "测试时间": "2025-09-11T11:30:13.580330",
+  "测试图片总数": 10,
+  "成功测试数": 10,
+  "失败测试数": 0,
+  "平均端到端耗时(秒)": 0.1582,
+  "耗时标准差(秒)": 0.011,
+  "最小耗时(秒)": 0.1436,
+  "最大耗时(秒)": 0.1827,
+  "吞吐量(张/秒)": 6.3203,
+  "测试提示词": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+  "详细结果文件路径": "combined_end2end_detailed_results_20250911_113008.json"
+}

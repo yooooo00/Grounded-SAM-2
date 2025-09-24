@@ -1,0 +1,522 @@
+[
+  {
+    "test_index": 1,
+    "image_path": "img_src/dog.jpeg",
+    "image_filename": "dog.jpeg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 1.083,
+    "bboxes_xyxy": [
+      [
+        627.5387573242188,
+        733.4368286132812,
+        698.7449340820312,
+        786.7224731445312
+      ],
+      [
+        0.986968994140625,
+        355.85809326171875,
+        464.1432800292969,
+        1277.434326171875
+      ],
+      [
+        68.68679809570312,
+        247.63583374023438,
+        646.8935546875,
+        927.2464599609375
+      ]
+    ],
+    "confidences": [
+      0.6249852180480957,
+      0.3915645480155945,
+      0.5633946061134338
+    ],
+    "labels": [
+      "car",
+      "person",
+      "dog"
+    ],
+    "image_height": 1280,
+    "image_width": 720,
+    "success": true
+  },
+  {
+    "test_index": 2,
+    "image_path": "img_src/image (10).jpg",
+    "image_filename": "image (10).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.1329,
+    "bboxes_xyxy": [
+      [
+        112.11461639404297,
+        18.646339416503906,
+        205.13601684570312,
+        235.1331787109375
+      ],
+      [
+        247.39385986328125,
+        0.12725830078125,
+        382.691650390625,
+        385.0633544921875
+      ],
+      [
+        188.5319061279297,
+        22.496429443359375,
+        272.2697448730469,
+        293.54193115234375
+      ],
+      [
+        0.17551803588867188,
+        27.55982208251953,
+        27.942136764526367,
+        130.97125244140625
+      ],
+      [
+        252.43492126464844,
+        162.34783935546875,
+        380.77899169921875,
+        420.93426513671875
+      ],
+      [
+        112.55120849609375,
+        103.9742431640625,
+        199.26275634765625,
+        257.12799072265625
+      ],
+      [
+        189.98812866210938,
+        140.6339111328125,
+        258.29547119140625,
+        313.0169372558594
+      ],
+      [
+        187.9892578125,
+        210.0906982421875,
+        208.69329833984375,
+        239.20965576171875
+      ],
+      [
+        229.13507080078125,
+        264.61395263671875,
+        247.94931030273438,
+        292.80902099609375
+      ],
+      [
+        114.84455871582031,
+        211.70558166503906,
+        130.3889923095703,
+        234.6944122314453
+      ],
+      [
+        157.29458618164062,
+        18.77657699584961,
+        181.77862548828125,
+        37.46394348144531
+      ]
+    ],
+    "confidences": [
+      0.8342903852462769,
+      0.8701572418212891,
+      0.833264946937561,
+      0.7280161380767822,
+      0.6273894906044006,
+      0.575106680393219,
+      0.5868726968765259,
+      0.367543488740921,
+      0.37451833486557007,
+      0.35691410303115845,
+      0.3521624505519867
+    ],
+    "labels": [
+      "person",
+      "person",
+      "person",
+      "person",
+      "bicycles",
+      "bicycles",
+      "bicycles",
+      "chairs",
+      "chairs",
+      "chairs",
+      "bottles"
+    ],
+    "image_height": 640,
+    "image_width": 639,
+    "success": true
+  },
+  {
+    "test_index": 3,
+    "image_path": "img_src/image (11).jpg",
+    "image_filename": "image (11).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.1217,
+    "bboxes_xyxy": [
+      [
+        102.14595794677734,
+        65.305419921875,
+        275.4887390136719,
+        323.36016845703125
+      ],
+      [
+        345.4264831542969,
+        0.23312759399414062,
+        499.9523620605469,
+        95.51292419433594
+      ],
+      [
+        272.90087890625,
+        163.43658447265625,
+        396.8470458984375,
+        332.3720703125
+      ]
+    ],
+    "confidences": [
+      0.7845597863197327,
+      0.5409020185470581,
+      0.43024614453315735
+    ],
+    "labels": [
+      "person",
+      "bicycles",
+      "person"
+    ],
+    "image_height": 334,
+    "image_width": 500,
+    "success": true
+  },
+  {
+    "test_index": 4,
+    "image_path": "img_src/image (3).jpg",
+    "image_filename": "image (3).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.1156,
+    "bboxes_xyxy": [
+      [
+        39.96098327636719,
+        36.1383056640625,
+        475.7587890625,
+        640.0390014648438
+      ],
+      [
+        294.93780517578125,
+        342.028564453125,
+        436.44830322265625,
+        410.90185546875
+      ],
+      [
+        316.656494140625,
+        481.0598449707031,
+        481.857666015625,
+        596.6251220703125
+      ],
+      [
+        400.52685546875,
+        592.8392944335938,
+        485.66546630859375,
+        639.9519653320312
+      ],
+      [
+        491.22222900390625,
+        -0.0753021240234375,
+        555.9594116210938,
+        310.09161376953125
+      ]
+    ],
+    "confidences": [
+      0.7592324018478394,
+      0.6303756237030029,
+      0.5685811638832092,
+      0.5110841393470764,
+      0.35661429166793823
+    ],
+    "labels": [
+      "person",
+      "keyboards",
+      "keyboards",
+      "mouses",
+      "tv"
+    ],
+    "image_height": 640,
+    "image_width": 556,
+    "success": true
+  },
+  {
+    "test_index": 5,
+    "image_path": "img_src/image (5).jpg",
+    "image_filename": "image (5).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0936,
+    "bboxes_xyxy": [
+      [
+        209.09634399414062,
+        17.81884765625,
+        354.4266052246094,
+        116.41824340820312
+      ],
+      [
+        384.6795959472656,
+        60.157318115234375,
+        564.4990234375,
+        346.2771911621094
+      ],
+      [
+        246.59210205078125,
+        235.05567932128906,
+        391.2293701171875,
+        416.997314453125
+      ]
+    ],
+    "confidences": [
+      0.8052614331245422,
+      0.8730941414833069,
+      0.641178548336029
+    ],
+    "labels": [
+      "microwave",
+      "refrigerator",
+      "oven"
+    ],
+    "image_height": 427,
+    "image_width": 640,
+    "success": true
+  },
+  {
+    "test_index": 6,
+    "image_path": "img_src/image (6).jpg",
+    "image_filename": "image (6).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0808,
+    "bboxes_xyxy": [
+      [
+        303.00836181640625,
+        74.60628509521484,
+        351.55755615234375,
+        226.81564331054688
+      ]
+    ],
+    "confidences": [
+      0.37657150626182556
+    ],
+    "labels": [
+      "refrigerator"
+    ],
+    "image_height": 230,
+    "image_width": 352,
+    "success": true
+  },
+  {
+    "test_index": 7,
+    "image_path": "img_src/image (7).jpg",
+    "image_filename": "image (7).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0961,
+    "bboxes_xyxy": [
+      [
+        6.5807037353515625,
+        97.67304229736328,
+        483.35443115234375,
+        317.0887756347656
+      ],
+      [
+        396.8225402832031,
+        138.3290557861328,
+        428.8500061035156,
+        198.3151092529297
+      ],
+      [
+        193.54629516601562,
+        67.56493377685547,
+        229.27001953125,
+        166.78033447265625
+      ],
+      [
+        153.31097412109375,
+        92.60951232910156,
+        174.0989990234375,
+        125.49559020996094
+      ],
+      [
+        216.33314514160156,
+        143.93240356445312,
+        236.5243682861328,
+        172.71029663085938
+      ],
+      [
+        234.86436462402344,
+        139.3406219482422,
+        260.1624450683594,
+        178.54811096191406
+      ],
+      [
+        288.3599853515625,
+        163.19064331054688,
+        309.40374755859375,
+        190.430908203125
+      ],
+      [
+        316.13104248046875,
+        161.99143981933594,
+        334.9122314453125,
+        195.0983123779297
+      ],
+      [
+        273.83111572265625,
+        152.9217529296875,
+        292.1773681640625,
+        186.8594970703125
+      ],
+      [
+        7.1353607177734375,
+        99.46471405029297,
+        483.58416748046875,
+        285.8265380859375
+      ],
+      [
+        258.9856262207031,
+        152.1450958251953,
+        276.0301818847656,
+        182.67616271972656
+      ]
+    ],
+    "confidences": [
+      0.3733058571815491,
+      0.4264555871486664,
+      0.3856182396411896,
+      0.37718042731285095,
+      0.42650306224823,
+      0.41191065311431885,
+      0.35940834879875183,
+      0.35149967670440674,
+      0.36817601323127747,
+      0.48086217045783997,
+      0.3884883522987366
+    ],
+    "labels": [
+      "boat",
+      "person",
+      "person",
+      "person",
+      "person",
+      "person",
+      "person",
+      "person",
+      "person",
+      "boat",
+      "person"
+    ],
+    "image_height": 346,
+    "image_width": 500,
+    "success": true
+  },
+  {
+    "test_index": 8,
+    "image_path": "img_src/image (8).jpg",
+    "image_filename": "image (8).jpg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0902,
+    "bboxes_xyxy": [
+      [
+        508.6283264160156,
+        171.51870727539062,
+        632.393310546875,
+        385.0262145996094
+      ],
+      [
+        2.943756103515625,
+        166.70697021484375,
+        132.09762573242188,
+        393.634521484375
+      ],
+      [
+        326.1223449707031,
+        174.49038696289062,
+        397.3316345214844,
+        372.2447204589844
+      ],
+      [
+        338.21575927734375,
+        45.56974792480469,
+        400.04888916015625,
+        103.70953369140625
+      ]
+    ],
+    "confidences": [
+      0.8758450150489807,
+      0.8571667075157166,
+      0.8618645668029785,
+      0.4123135507106781
+    ],
+    "labels": [
+      "person",
+      "person",
+      "person",
+      "tv"
+    ],
+    "image_height": 428,
+    "image_width": 640,
+    "success": true
+  },
+  {
+    "test_index": 9,
+    "image_path": "img_src/Menu.jpeg",
+    "image_filename": "Menu.jpeg",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0879,
+    "bboxes_xyxy": [
+      [
+        237.61012268066406,
+        93.39884948730469,
+        399.9769287109375,
+        241.20130920410156
+      ],
+      [
+        252.04412841796875,
+        317.5704040527344,
+        399.92059326171875,
+        492.4020080566406
+      ]
+    ],
+    "confidences": [
+      0.7666546106338501,
+      0.7026800513267517
+    ],
+    "labels": [
+      "burgers",
+      "pizza"
+    ],
+    "image_height": 518,
+    "image_width": 400,
+    "success": true
+  },
+  {
+    "test_index": 10,
+    "image_path": "img_src/yw1.png",
+    "image_filename": "yw1.png",
+    "text_prompt": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "inference_time_s": 0.0921,
+    "bboxes_xyxy": [
+      [
+        184.08175659179688,
+        6.532012939453125,
+        236.12393188476562,
+        118.41798400878906
+      ],
+      [
+        61.21784973144531,
+        122.2611083984375,
+        112.00711059570312,
+        192.810546875
+      ]
+    ],
+    "confidences": [
+      0.889818012714386,
+      0.41831842064857483
+    ],
+    "labels": [
+      "person",
+      "dog"
+    ],
+    "image_height": 216,
+    "image_width": 340,
+    "success": true
+  }
+]

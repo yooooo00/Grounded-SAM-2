@@ -1,0 +1,62 @@
+{
+  "测试汇总信息": {
+    "测试开始时间": "2025-09-11T11:30:08",
+    "测试图片总数": 10,
+    "测试图片目录": "img_src",
+    "测试提示词": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+    "结果保存目录": "grounded_sam2_perf_results_20250911_113008",
+    "测试设备API地址": "http://localhost:5000"
+  },
+  "各模型核心性能指标对比": {
+    "Grounding DINO": {
+      "模型": "Grounding DINO",
+      "测试时间": "2025-09-11T11:30:10.155326",
+      "测试图片总数": 10,
+      "成功测试数": 10,
+      "失败测试数": 0,
+      "平均耗时(秒)": 0.1994,
+      "耗时标准差(秒)": 0.295,
+      "最小耗时(秒)": 0.0808,
+      "最大耗时(秒)": 1.083,
+      "吞吐量(张/秒)": 5.0153,
+      "测试提示词": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+      "详细结果文件路径": "grounding_dino_detailed_results_20250911_113008.json"
+    },
+    "SAM2（基于DINO BBox）": {
+      "模型": "SAM2（基于Grounding DINO BBox）",
+      "测试时间": "2025-09-11T11:30:11.993048",
+      "测试图片总数": 10,
+      "成功测试数": 10,
+      "失败测试数": 0,
+      "平均耗时(秒)": 0.0894,
+      "耗时标准差(秒)": 0.0446,
+      "最小耗时(秒)": 0.0645,
+      "最大耗时(秒)": 0.2193,
+      "吞吐量(张/秒)": 11.1819,
+      "输入BBox来源": "Grounding DINO检测结果",
+      "详细结果文件路径": "sam2_detailed_results_20250911_113008.json"
+    },
+    "端到端（DINO+SAM2）": {
+      "模型": "Grounding DINO + SAM2（端到端）",
+      "测试时间": "2025-09-11T11:30:13.580330",
+      "测试图片总数": 10,
+      "成功测试数": 10,
+      "失败测试数": 0,
+      "平均端到端耗时(秒)": 0.1582,
+      "耗时标准差(秒)": 0.011,
+      "最小耗时(秒)": 0.1436,
+      "最大耗时(秒)": 0.1827,
+      "吞吐量(张/秒)": 6.3203,
+      "测试提示词": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+      "详细结果文件路径": "combined_end2end_detailed_results_20250911_113008.json",
+      "平均耗时(秒)": 0.1582
+    }
+  },
+  "指标说明": {
+    "平均耗时": "单张图片的平均推理时间（秒），越小性能越好",
+    "吞吐量": "每秒可处理的图片数量（张/秒），越大性能越好",
+    "耗时标准差": "推理时间的波动程度，越小稳定性越好",
+    "BBoxes_xyxy": "目标检测框坐标（x1,y1,x2,y2格式，可直接用于后续任务）",
+    "masks_rle": "分割掩码（RLE压缩格式，需用pycocotools解码）"
+  }
+}

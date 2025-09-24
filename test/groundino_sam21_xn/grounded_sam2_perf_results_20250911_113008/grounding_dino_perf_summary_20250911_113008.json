@@ -1,0 +1,14 @@
+{
+  "模型": "Grounding DINO",
+  "测试时间": "2025-09-11T11:30:10.155326",
+  "测试图片总数": 10,
+  "成功测试数": 10,
+  "失败测试数": 0,
+  "平均耗时(秒)": 0.1994,
+  "耗时标准差(秒)": 0.295,
+  "最小耗时(秒)": 0.0808,
+  "最大耗时(秒)": 1.083,
+  "吞吐量(张/秒)": 5.0153,
+  "测试提示词": "person. car. dog. Burgers. Pizza. bicycles. boat. mouses. keyboards. tv. microwave. oven. refrigerator. bottles. banana. oranges. chairs. potted plant.",
+  "详细结果文件路径": "grounding_dino_detailed_results_20250911_113008.json"
+}
