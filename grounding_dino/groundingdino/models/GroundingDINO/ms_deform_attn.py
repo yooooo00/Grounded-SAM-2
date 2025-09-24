@@ -24,7 +24,7 @@ import torch.nn.functional as F
 from torch.autograd import Function
 from torch.autograd.function import once_differentiable
 from torch.nn.init import constant_, xavier_uniform_
-
+from mmcv.ops.multi_scale_deform_attn import MultiScaleDeformableAttnFunction as _C_npu
 try:
     from grounding_dino.groundingdino import _C
 except:
@@ -49,6 +49,7 @@ class MultiScaleDeformableAttnFunction(Function):
         attention_weights,
         im2col_step,
     ):
+        '''
         ctx.im2col_step = im2col_step
         output = _C.ms_deform_attn_forward(
             value,
@@ -66,6 +67,8 @@ class MultiScaleDeformableAttnFunction(Function):
             attention_weights,
         )
         return output
+        '''
+        return _C_npu.forward(ctx,value,value_spatial_shapes,value_level_start_index,sampling_locations,attention_weights,im2col_step)
 
     @staticmethod
     @once_differentiable

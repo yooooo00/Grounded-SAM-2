@@ -1,0 +1,147 @@
+2025-07-22 09:00:01 [INFO] [1297] [1297] [kernel_parser_worker.cpp:41] Start run KernelParserWorker
+2025-07-22 09:00:01 [INFO] [1297] [1298] [kernel_parser_worker.cpp:53] Start parse hash data
+2025-07-22 09:00:01 [INFO] [1297] [1298] [kernel_parser_worker.cpp:73] Hash data load from path: /root/work/filestorage/wwg/Grounded-SAM-2/outputs/adetailer/dl-e1fac0b2e30f36708a84ef5ffe35db5e-r0-4e49af3ba7d1-0_69_20250722005956139_ascend_pt/PROF_000001_20250722085956147_RCGCGPKNBFQLPMEA/host/data
+2025-07-22 09:00:01 [INFO] [1297] [1299] [kernel_parser_worker.cpp:57] Start parse type info data
+2025-07-22 09:00:01 [INFO] [1297] [1299] [kernel_parser_worker.cpp:94] Typeinfo data load from path: /root/work/filestorage/wwg/Grounded-SAM-2/outputs/adetailer/dl-e1fac0b2e30f36708a84ef5ffe35db5e-r0-4e49af3ba7d1-0_69_20250722005956139_ascend_pt/PROF_000001_20250722085956147_RCGCGPKNBFQLPMEA/host/data
+2025-07-22 09:00:01 [INFO] [1297] [1298] [kernel_parser_worker.cpp:76] success get hash data
+2025-07-22 09:00:01 [INFO] [1297] [1298] [kernel_parser_worker.cpp:83] success get hashDbDumper
+2025-07-22 09:00:01 [INFO] [1297] [1298] [db_runner.cpp:45] Start create GeHashInfo
+2025-07-22 09:00:01 [INFO] [1297] [1299] [db_runner.cpp:45] Start create TypeHashInfo
+2025-07-22 09:00:01 [INFO] [1297] [1299] [db_runner.cpp:54] create TypeHashInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1299] [db_runner.h:57] Start insert data to TypeHashInfo
+2025-07-22 09:00:01 [INFO] [1297] [1299] [db_runner.h:64] insert data to TypeHashInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1299] [base_dumper.h:52] Dump TypeHashInfo data success
+2025-07-22 09:00:01 [INFO] [1297] [1298] [db_runner.cpp:54] create GeHashInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1298] [db_runner.h:57] Start insert data to GeHashInfo
+2025-07-22 09:00:01 [INFO] [1297] [1298] [db_runner.h:64] insert data to GeHashInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1298] [base_dumper.h:52] Dump GeHashInfo data success
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:28] HostTraceWorker start
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:28] Group all events start
+2025-07-22 09:00:01 [INFO] [1297] [1301] [time_logger.h:28] Group Kernel start
+2025-07-22 09:00:01 [INFO] [1297] [1303] [time_logger.h:28] Group GraphIdMap start
+2025-07-22 09:00:01 [INFO] [1297] [1302] [time_logger.h:28] Group FusionOpInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1308] [time_logger.h:28] Group NodeBasicInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1304] [time_logger.h:28] Group NodeAttrInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1307] [time_logger.h:28] Group TensorInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1305] [time_logger.h:28] Group ContextId start
+2025-07-22 09:00:01 [INFO] [1297] [1306] [time_logger.h:28] Group HcclInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1302] [time_logger.h:35] Group FusionOpInfo end, cost time = 1 ms
+2025-07-22 09:00:01 [INFO] [1297] [1303] [time_logger.h:35] Group GraphIdMap end, cost time = 1 ms
+2025-07-22 09:00:01 [INFO] [1297] [1302] [time_logger.h:28] Group TaskTrack start
+2025-07-22 09:00:01 [INFO] [1297] [1303] [time_logger.h:28] Group HcclOpInfo start
+2025-07-22 09:00:01 [INFO] [1297] [1304] [time_logger.h:35] Group NodeAttrInfo end, cost time = 1 ms
+2025-07-22 09:00:01 [INFO] [1297] [1306] [time_logger.h:35] Group HcclInfo end, cost time = 1 ms
+2025-07-22 09:00:01 [INFO] [1297] [1303] [time_logger.h:35] Group HcclOpInfo end, cost time = 0 ms
+2025-07-22 09:00:01 [INFO] [1297] [1305] [time_logger.h:35] Group ContextId end, cost time = 2 ms
+2025-07-22 09:00:01 [INFO] [1297] [1308] [time_logger.h:35] Group NodeBasicInfo end, cost time = 5 ms
+2025-07-22 09:00:01 [INFO] [1297] [1302] [time_logger.h:35] Group TaskTrack end, cost time = 6 ms
+2025-07-22 09:00:01 [INFO] [1297] [1301] [time_logger.h:35] Group Kernel end, cost time = 10 ms
+2025-07-22 09:00:01 [INFO] [1297] [1307] [time_logger.h:35] Group TensorInfo end, cost time = 15 ms
+2025-07-22 09:00:01 [INFO] [1297] [1297] [event_grouper.cpp:122] After group events, Kernel: 2983, GraphId: 0, FusionOp: 0, NodeBasic: 0, NodeAttr: 0, Tensor: 0, ContextId: 0, HcclInfo: 0, TaskTrack: 2, HcclOpInfo: 0, thread: 69
+2025-07-22 09:00:01 [INFO] [1297] [1297] [event_grouper.cpp:122] After group events, Kernel: 5445, GraphId: 0, FusionOp: 0, NodeBasic: 3085, NodeAttr: 0, Tensor: 3016, ContextId: 107, HcclInfo: 0, TaskTrack: 3096, HcclOpInfo: 0, thread: 487
+2025-07-22 09:00:01 [INFO] [1297] [1297] [event_grouper.cpp:122] After group events, Kernel: 25, GraphId: 0, FusionOp: 0, NodeBasic: 0, NodeAttr: 0, Tensor: 0, ContextId: 0, HcclInfo: 0, TaskTrack: 0, HcclOpInfo: 0, thread: 488
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:35] Group all events end, cost time = 16 ms
+2025-07-22 09:00:01 [INFO] [1297] [1318] [time_logger.h:28] Dump flip tasks data start start
+2025-07-22 09:00:01 [WARN] [1297] [1318] [base_dumper.h:38] Input data is empty, pass dump
+2025-07-22 09:00:01 [INFO] [1297] [1318] [time_logger.h:35] Dump flip tasks data start end, cost time = 0 ms
+2025-07-22 09:00:01 [INFO] [1297] [1318] [time_logger.h:28] Dump model name data start start
+2025-07-22 09:00:01 [INFO] [1297] [1309] [time_logger.h:28] Dump api data start start
+2025-07-22 09:00:01 [INFO] [1297] [1312] [time_logger.h:28] Multi thread build tree start
+2025-07-22 09:00:01 [INFO] [1297] [1309] [db_runner.cpp:45] Start create ApiData
+2025-07-22 09:00:01 [WARN] [1297] [1318] [base_dumper.h:38] Input data is empty, pass dump
+2025-07-22 09:00:01 [INFO] [1297] [1318] [time_logger.h:35] Dump model name data start end, cost time = 0 ms
+2025-07-22 09:00:01 [INFO] [1297] [1328] [host_trace_worker.cpp:66] Start multi thread build tree, threadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1321] [host_trace_worker.cpp:66] Start multi thread build tree, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1319] [host_trace_worker.cpp:66] Start multi thread build tree, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1321] [event_queue.cpp:70] EventQueue for thread 488 is empty
+2025-07-22 09:00:01 [INFO] [1297] [1321] [event_queue.cpp:70] EventQueue for thread 488 is empty
+2025-07-22 09:00:01 [WARN] [1297] [1329] [tree_builder.cpp:188] No Events, event type: 8, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1331] [tree_builder.cpp:188] No Events, event type: 2, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1330] [tree_builder.cpp:188] No Events, event type: 6, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1331] [tree_builder.cpp:188] No Events, event type: 3, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1330] [tree_builder.cpp:188] No Events, event type: 5, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1331] [tree_builder.cpp:188] No Events, event type: 4, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1331] [tree_builder.cpp:188] No Events, event type: 6, threadId = 488
+2025-07-22 09:00:01 [WARN] [1297] [1331] [tree_builder.cpp:188] No Events, event type: 10, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1321] [tree_builder.cpp:264] TaskTrack Events have been processed, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1321] [tree_builder.cpp:69] Build Tree End, ThreadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1321] [host_trace_worker.cpp:76] Multi thread build tree done, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1328] [event_queue.cpp:70] EventQueue for thread 69 is empty
+2025-07-22 09:00:01 [INFO] [1297] [1328] [event_queue.cpp:70] EventQueue for thread 69 is empty
+2025-07-22 09:00:01 [WARN] [1297] [1334] [tree_builder.cpp:188] No Events, event type: 8, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1333] [tree_builder.cpp:188] No Events, event type: 2, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1332] [tree_builder.cpp:188] No Events, event type: 6, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1333] [tree_builder.cpp:188] No Events, event type: 3, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1332] [tree_builder.cpp:188] No Events, event type: 5, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1333] [tree_builder.cpp:188] No Events, event type: 4, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1333] [tree_builder.cpp:188] No Events, event type: 6, threadId = 69
+2025-07-22 09:00:01 [WARN] [1297] [1333] [tree_builder.cpp:188] No Events, event type: 10, threadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1328] [tree_builder.cpp:69] Build Tree End, ThreadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1328] [host_trace_worker.cpp:76] Multi thread build tree done, threadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1319] [event_queue.cpp:70] EventQueue for thread 487 is empty
+2025-07-22 09:00:01 [INFO] [1297] [1319] [event_queue.cpp:70] EventQueue for thread 487 is empty
+2025-07-22 09:00:01 [INFO] [1297] [1319] [event_queue.cpp:70] EventQueue for thread 487 is empty
+2025-07-22 09:00:01 [WARN] [1297] [1335] [tree_builder.cpp:188] No Events, event type: 8, threadId = 487
+2025-07-22 09:00:01 [WARN] [1297] [1337] [tree_builder.cpp:188] No Events, event type: 6, threadId = 487
+2025-07-22 09:00:01 [WARN] [1297] [1337] [tree_builder.cpp:188] No Events, event type: 5, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1336] [tree_builder.cpp:230] Add LevelEvents done, threadId = 487, event type: 2, matchCnt = 3085, mismatchCnt = 0 
+2025-07-22 09:00:01 [WARN] [1297] [1336] [tree_builder.cpp:188] No Events, event type: 3, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1309] [db_runner.cpp:54] create ApiData success
+2025-07-22 09:00:01 [INFO] [1297] [1336] [tree_builder.cpp:230] Add LevelEvents done, threadId = 487, event type: 4, matchCnt = 3016, mismatchCnt = 0 
+2025-07-22 09:00:01 [INFO] [1297] [1336] [tree_builder.cpp:230] Add LevelEvents done, threadId = 487, event type: 6, matchCnt = 107, mismatchCnt = 0 
+2025-07-22 09:00:01 [WARN] [1297] [1336] [tree_builder.cpp:188] No Events, event type: 10, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1309] [db_runner.h:57] Start insert data to ApiData
+2025-07-22 09:00:01 [INFO] [1297] [1319] [tree_builder.cpp:69] Build Tree End, ThreadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1319] [host_trace_worker.cpp:76] Multi thread build tree done, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1312] [time_logger.h:35] Multi thread build tree end, cost time = 16 ms
+2025-07-22 09:00:01 [INFO] [1297] [1312] [time_logger.h:28] Multi thread analyze tree and dump data start
+2025-07-22 09:00:01 [INFO] [1297] [1339] [host_trace_worker.cpp:92] Start analyze tree and dump data, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1340] [host_trace_worker.cpp:92] Start analyze tree and dump data, threadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1347] [host_trace_worker.cpp:92] Start analyze tree and dump data, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1339] [time_logger.h:28] Dump CANN data start
+2025-07-22 09:00:01 [INFO] [1297] [1349] [cann_trace_db_dumper.cpp:126] Empty hccl OPs
+2025-07-22 09:00:01 [INFO] [1297] [1350] [cann_trace_db_dumper.cpp:159] Empty host tasks
+2025-07-22 09:00:01 [INFO] [1297] [1348] [cann_trace_db_dumper.cpp:382] Empty geFusionOps
+2025-07-22 09:00:01 [INFO] [1297] [1349] [cann_trace_db_dumper.cpp:329] Empty hccl tasks
+2025-07-22 09:00:01 [INFO] [1297] [1351] [cann_trace_db_dumper.cpp:194] Empty kernel tasks
+2025-07-22 09:00:01 [INFO] [1297] [1339] [time_logger.h:35] Dump CANN data end, cost time = 0 ms
+2025-07-22 09:00:01 [INFO] [1297] [1339] [host_trace_worker.cpp:100] Dump cann trace data done, threadId = 488
+2025-07-22 09:00:01 [INFO] [1297] [1340] [time_logger.h:28] Dump CANN data start
+2025-07-22 09:00:01 [INFO] [1297] [1352] [cann_trace_db_dumper.cpp:126] Empty hccl OPs
+2025-07-22 09:00:01 [INFO] [1297] [1355] [time_logger.h:28] Dump host tasks start
+2025-07-22 09:00:01 [INFO] [1297] [1353] [cann_trace_db_dumper.cpp:194] Empty kernel tasks
+2025-07-22 09:00:01 [INFO] [1297] [1352] [cann_trace_db_dumper.cpp:329] Empty hccl tasks
+2025-07-22 09:00:01 [INFO] [1297] [1355] [db_runner.cpp:45] Start create HostTask
+2025-07-22 09:00:01 [INFO] [1297] [1354] [cann_trace_db_dumper.cpp:382] Empty geFusionOps
+2025-07-22 09:00:01 [INFO] [1297] [1355] [db_runner.cpp:54] create HostTask success
+2025-07-22 09:00:01 [INFO] [1297] [1355] [db_runner.h:57] Start insert data to HostTask
+2025-07-22 09:00:01 [INFO] [1297] [1355] [db_runner.h:64] insert data to HostTask success
+2025-07-22 09:00:01 [INFO] [1297] [1355] [time_logger.h:35] Dump host tasks end, cost time = 17 ms
+2025-07-22 09:00:01 [INFO] [1297] [1340] [time_logger.h:35] Dump CANN data end, cost time = 17 ms
+2025-07-22 09:00:01 [INFO] [1297] [1340] [host_trace_worker.cpp:100] Dump cann trace data done, threadId = 69
+2025-07-22 09:00:01 [INFO] [1297] [1347] [time_logger.h:28] Dump CANN data start
+2025-07-22 09:00:01 [INFO] [1297] [1356] [cann_trace_db_dumper.cpp:126] Empty hccl OPs
+2025-07-22 09:00:01 [INFO] [1297] [1356] [cann_trace_db_dumper.cpp:329] Empty hccl tasks
+2025-07-22 09:00:01 [INFO] [1297] [1356] [cann_trace_db_dumper.cpp:382] Empty geFusionOps
+2025-07-22 09:00:01 [INFO] [1297] [1357] [time_logger.h:28] DumpOpDesc Start start
+2025-07-22 09:00:01 [INFO] [1297] [1359] [time_logger.h:28] Dump host tasks start
+2025-07-22 09:00:01 [INFO] [1297] [1359] [db_runner.cpp:45] Start create HostTask
+2025-07-22 09:00:01 [INFO] [1297] [1357] [db_runner.cpp:45] Start create TaskInfo
+2025-07-22 09:00:01 [INFO] [1297] [1309] [db_runner.h:64] insert data to ApiData success
+2025-07-22 09:00:01 [INFO] [1297] [1309] [base_dumper.h:52] Dump ApiData data success
+2025-07-22 09:00:01 [INFO] [1297] [1359] [db_runner.cpp:54] create HostTask success
+2025-07-22 09:00:01 [INFO] [1297] [1309] [time_logger.h:35] Dump api data start end, cost time = 45 ms
+2025-07-22 09:00:01 [INFO] [1297] [1359] [db_runner.h:57] Start insert data to HostTask
+2025-07-22 09:00:01 [INFO] [1297] [1357] [db_runner.cpp:54] create TaskInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1359] [db_runner.h:64] insert data to HostTask success
+2025-07-22 09:00:01 [INFO] [1297] [1359] [time_logger.h:35] Dump host tasks end, cost time = 20 ms
+2025-07-22 09:00:01 [INFO] [1297] [1357] [db_runner.h:57] Start insert data to TaskInfo
+2025-07-22 09:00:01 [INFO] [1297] [1357] [db_runner.h:64] insert data to TaskInfo success
+2025-07-22 09:00:01 [INFO] [1297] [1357] [time_logger.h:35] DumpOpDesc Start end, cost time = 145 ms
+2025-07-22 09:00:01 [INFO] [1297] [1347] [time_logger.h:35] Dump CANN data end, cost time = 146 ms
+2025-07-22 09:00:01 [INFO] [1297] [1347] [host_trace_worker.cpp:100] Dump cann trace data done, threadId = 487
+2025-07-22 09:00:01 [INFO] [1297] [1312] [time_logger.h:35] Multi thread analyze tree and dump data end, cost time = 169 ms
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:28] Dump memcpy info data start start
+2025-07-22 09:00:01 [WARN] [1297] [1297] [base_dumper.h:38] Input data is empty, pass dump
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:35] Dump memcpy info data start end, cost time = 1 ms
+2025-07-22 09:00:01 [INFO] [1297] [1297] [time_logger.h:35] HostTraceWorker end, cost time = 207 ms
