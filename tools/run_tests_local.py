@@ -63,6 +63,8 @@ def run_tests(
     out_dir: Path,
     amp: bool = True,
     server_preproc: bool = True,
+    global_warmup: int = 0,
+    per_shape_warmup: bool = False,
 ):
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -81,6 +83,35 @@ def run_tests(
     dino_details, sam2_details, end2end_details = [], [], []
     dino_times, sam2_times, end2end_times = [], [], []
 
+    # 可选：全局预热（不计时），跑完整条链路以构建初始图/缓存
+    if global_warmup and global_warmup > 0:
+        for _ in range(global_warmup):
+            for img_path in images:
+                img_path_str = str(img_path)
+                img_bgr = cv2.imread(img_path_str)
+                if img_bgr is None:
+                    continue
+                image_source = img_bgr.copy()
+                image_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+                image = (image_rgb.astype(np.float32) / 255.0).transpose(2, 0, 1)
+                image_tensor = torch.tensor(image, dtype=torch.float32).to(device)
+                with autocast_ctx(device, enabled=amp, dtype=torch.bfloat16):
+                    boxes, confs, labels = gdino_predict(
+                        gdino, image_tensor, text_prompt, box_th, text_th, device
+                    )
+                    sync(device)
+                    predictor.set_image(image_source)
+                    sync(device)
+                    # 转换坐标供 predict 使用
+                    h, w, _ = image_source.shape
+                    boxes_px = boxes * torch.tensor([w, h, w, h])
+                    xyxy = box_convert(boxes=boxes_px, in_fmt="cxcywh", out_fmt="xyxy").numpy().astype(np.float32, copy=True)
+                    predictor.predict(point_coords=None, point_labels=None, box=xyxy, multimask_output=False)
+                    sync(device)
+
+    # 可选：按形状预热一次（不计时），避免首次遇到新形状的编译噪声
+    seen_shapes = set()
+
     for idx, img_path in enumerate(images, 1):
         img_path_str = str(img_path)
         # 与客户服务端一致的预处理：BGR -> RGB -> /255 -> HWC->CHW -> float32 tensor
@@ -92,6 +123,24 @@ def run_tests(
         image = (image_rgb.astype(np.float32) / 255.0).transpose(2, 0, 1)
         image_tensor = torch.tensor(image, dtype=torch.float32).to(device)
         h, w, _ = image_source.shape
+
+        # 可选：遇到新形状，先做一次完整链路预热（不计时）
+        if per_shape_warmup:
+            shape_key = (image_source.shape[0], image_source.shape[1])
+            if shape_key not in seen_shapes:
+                with autocast_ctx(device, enabled=amp, dtype=torch.bfloat16):
+                    _boxes, _confs, _labels = gdino_predict(
+                        gdino, image_tensor, text_prompt, box_th, text_th, device
+                    )
+                    sync(device)
+                    predictor.set_image(image_source)
+                    sync(device)
+                    _boxes_px = _boxes * torch.tensor([w, h, w, h])
+                    _xyxy = box_convert(boxes=_boxes_px, in_fmt="cxcywh", out_fmt="xyxy").numpy().astype(np.float32, copy=True)
+                    if len(_xyxy) > 0:
+                        predictor.predict(point_coords=None, point_labels=None, box=_xyxy, multimask_output=False)
+                        sync(device)
+                seen_shapes.add(shape_key)
 
         # Grounding DINO 计时
         t0 = time.perf_counter()
@@ -234,6 +283,8 @@ def main():
     p.add_argument("--device", choices=["npu", "cpu"], default="npu")
     p.add_argument("--out", default="outputs/test_run")
     p.add_argument("--server-preproc", action="store_true", default=True, help="使用与客户服务端一致的图像预处理")
+    p.add_argument("--global-warmup", type=int, default=0, help="全局预热轮次（不计时，先构建图/缓存）")
+    p.add_argument("--per-shape-warmup", action="store_true", help="遇到新形状先预热一次（不计时）")
     p.add_argument("--no-amp", action="store_true")
     args = p.parse_args()
 
@@ -256,6 +307,8 @@ def main():
         out_dir=out_dir,
         amp=amp,
         server_preproc=args.server_preproc,
+        global_warmup=args.global_warmup,
+        per_shape_warmup=args.per_shape_warmup,
     )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
