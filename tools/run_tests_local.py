@@ -6,11 +6,12 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 import numpy as np
+import cv2
 import torch
 from torchvision.ops import box_convert
 import pycocotools.mask as mask_util
 
-from grounding_dino.groundingdino.util.inference import load_model, load_image, predict as gdino_predict
+from grounding_dino.groundingdino.util.inference import load_model, predict as gdino_predict
 from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
 
@@ -61,6 +62,7 @@ def run_tests(
     num_runs: int,
     out_dir: Path,
     amp: bool = True,
+    server_preproc: bool = True,
 ):
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -81,7 +83,14 @@ def run_tests(
 
     for idx, img_path in enumerate(images, 1):
         img_path_str = str(img_path)
-        image_source, image_tensor = load_image(img_path_str)
+        # 与客户服务端一致的预处理：BGR -> RGB -> /255 -> HWC->CHW -> float32 tensor
+        img_bgr = cv2.imread(img_path_str)
+        if img_bgr is None:
+            raise FileNotFoundError(f"读取图片失败: {img_path_str}")
+        image_source = img_bgr.copy()
+        image_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+        image = (image_rgb.astype(np.float32) / 255.0).transpose(2, 0, 1)
+        image_tensor = torch.tensor(image, dtype=torch.float32).to(device)
         h, w, _ = image_source.shape
 
         # Grounding DINO 计时
@@ -95,7 +104,7 @@ def run_tests(
         dino_times.append(t1 - t0)
 
         boxes_px = boxes * torch.tensor([w, h, w, h])
-        xyxy = box_convert(boxes=boxes_px, in_fmt="cxcywh", out_fmt="xyxy").numpy().copy()
+        xyxy = box_convert(boxes=boxes_px, in_fmt="cxcywh", out_fmt="xyxy").numpy().astype(np.float32, copy=True)
 
         dino_details.append({
             "test_index": idx,
@@ -224,6 +233,7 @@ def main():
     p.add_argument("--num-runs", type=int, default=10)
     p.add_argument("--device", choices=["npu", "cpu"], default="npu")
     p.add_argument("--out", default="outputs/test_run")
+    p.add_argument("--server-preproc", action="store_true", default=True, help="使用与客户服务端一致的图像预处理")
     p.add_argument("--no-amp", action="store_true")
     args = p.parse_args()
 
@@ -245,10 +255,10 @@ def main():
         num_runs=args.num_runs,
         out_dir=out_dir,
         amp=amp,
+        server_preproc=args.server_preproc,
     )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
     main()
-
