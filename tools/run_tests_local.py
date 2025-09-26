@@ -15,6 +15,7 @@ from grounding_dino.groundingdino.util.inference import load_model, predict as g
 from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
 
+from torch_npu.contrib import transfer_to_npu
 
 def autocast_ctx(device: str, enabled: bool = True, dtype=torch.bfloat16):
     if not enabled:
