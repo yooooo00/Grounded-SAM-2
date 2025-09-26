@@ -119,7 +119,10 @@ def run_tests(
             print("[compile] skip compile due to:", repr(e))
     sam2 = build_sam2(sam_cfg, sam_ckpt, device=device)
     predictor = SAM2ImagePredictor(sam2)
-    gdino.eval(); predictor.model.eval(); torch.set_grad_enabled(False)
+    gdino.eval(); predictor.model.eval(); 
+    import torch as _torch
+    _torch.set_grad_enabled(False)
+
 
     # 选图
     images = list_images(image_dir, num_runs)
