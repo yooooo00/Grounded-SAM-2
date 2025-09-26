@@ -1,0 +1,58 @@
+diff --git a/mmengine/infer/infer.py b/mmengine/infer/infer.py
+index 322d885..5c9e460 100644
+--- a/mmengine/infer/infer.py
++++ b/mmengine/infer/infer.py
+@@ -483,6 +483,7 @@ class BaseInferencer(metaclass=InferencerMeta):
+         model = MODELS.build(cfg.model)
+         model.cfg = cfg
+         self._load_weights_to_model(model, checkpoint, cfg)
++        model.half()
+         model.to(device)
+         model.eval()
+         return model
+diff --git a/mmengine/utils/misc.py b/mmengine/utils/misc.py
+index 23ae707..5ae3c3a 100644
+--- a/mmengine/utils/misc.py
++++ b/mmengine/utils/misc.py
+@@ -358,38 +358,9 @@ def deprecated_api_warning(name_dict: dict,
+ 
+         @functools.wraps(old_func)
+         def new_func(*args, **kwargs):
+-            # get the arg spec of the decorated method
+-            args_info = getfullargspec(old_func)
+-            # get name of the function
+-            func_name = old_func.__name__
+-            if cls_name is not None:
+-                func_name = f'{cls_name}.{func_name}'
+-            if args:
+-                arg_names = args_info.args[:len(args)]
+-                for src_arg_name, dst_arg_name in name_dict.items():
+-                    if src_arg_name in arg_names:
+-                        warnings.warn(
+-                            f'"{src_arg_name}" is deprecated in '
+-                            f'`{func_name}`, please use "{dst_arg_name}" '
+-                            'instead', DeprecationWarning)
+-                        arg_names[arg_names.index(src_arg_name)] = dst_arg_name
+-            if kwargs:
+-                for src_arg_name, dst_arg_name in name_dict.items():
+-                    if src_arg_name in kwargs:
+-                        assert dst_arg_name not in kwargs, (
+-                            f'The expected behavior is to replace '
+-                            f'the deprecated key `{src_arg_name}` to '
+-                            f'new key `{dst_arg_name}`, but got them '
+-                            f'in the arguments at the same time, which '
+-                            f'is confusing. `{src_arg_name} will be '
+-                            f'deprecated in the future, please '
+-                            f'use `{dst_arg_name}` instead.')
+-
+-                        warnings.warn(
+-                            f'"{src_arg_name}" is deprecated in '
+-                            f'`{func_name}`, please use "{dst_arg_name}" '
+-                            'instead', DeprecationWarning)
+-                        kwargs[dst_arg_name] = kwargs.pop(src_arg_name)
++            # remove the logic of the dynamic replacement function, reason:
++            # 1.There is no function substitution involved in the runtime.
++            # 2.Torch dynamo will cause error here.
+ 
+             # apply converted arguments to the decorated method
+             output = old_func(*args, **kwargs)

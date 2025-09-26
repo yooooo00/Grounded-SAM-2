@@ -65,11 +65,42 @@ def run_tests(
     server_preproc: bool = True,
     global_warmup: int = 0,
     per_shape_warmup: bool = False,
+    compile_gdino: bool = False,
+    compile_backend: str = "",
 ):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # 加载模型
     gdino = load_model(gd_cfg, gd_ckpt, device=device)
+    # Optional: compile GroundingDINO (torch.compile / torchair backend)
+    if compile_gdino:
+        try:
+            if compile_backend.lower() == "torchair":
+                import torchair as tng  # type: ignore
+                from torchair.configs.compiler_config import CompilerConfig  # type: ignore
+                cfg = CompilerConfig()
+                cfg.experimental_config.frozen_parameter = True
+                cfg.experimental_config.tiling_schedule_optimize = True
+                npu_backend = tng.get_npu_backend(compiler_config=cfg)
+                # Try compile common submodules first; fallback to whole model
+                compiled_any = False
+                for sub in ["backbone", "encoder", "decoder", "language_model", "transformer"]:
+                    if hasattr(gdino, sub):
+                        setattr(gdino, sub, torch.compile(getattr(gdino, sub), dynamic=False, fullgraph=True, backend=npu_backend))
+                        try:
+                            tng.use_internal_format_weight(getattr(gdino, sub))
+                        except Exception:
+                            pass
+                        compiled_any = True
+                if not compiled_any:
+                    gdino = torch.compile(gdino, dynamic=False, fullgraph=True, backend=npu_backend)
+            else:
+                # Default to inductor reduce-overhead
+                torch._dynamo.config.suppress_errors = True  # noqa: SLF001
+                gdino = torch.compile(gdino, fullgraph=True, dynamic=False, mode="reduce-overhead")
+            print("[compile] GroundingDINO compiled with backend:", (compile_backend or "inductor"))
+        except Exception as e:
+            print("[compile] skip compile due to:", repr(e))
     sam2 = build_sam2(sam_cfg, sam_ckpt, device=device)
     predictor = SAM2ImagePredictor(sam2)
     gdino.eval(); predictor.model.eval(); torch.set_grad_enabled(False)
@@ -285,6 +316,8 @@ def main():
     p.add_argument("--server-preproc", action="store_true", default=True, help="使用与客户服务端一致的图像预处理")
     p.add_argument("--global-warmup", type=int, default=0, help="全局预热轮次（不计时，先构建图/缓存）")
     p.add_argument("--per-shape-warmup", action="store_true", help="遇到新形状先预热一次（不计时）")
+    p.add_argument("--compile-gdino", action="store_true", help="对 GroundingDINO 启用 torch.compile")
+    p.add_argument("--compile-backend", choices=["", "inductor", "torchair"], default="", help="编译后端选择；空为 inductor")
     p.add_argument("--no-amp", action="store_true")
     args = p.parse_args()
 
@@ -309,6 +342,8 @@ def main():
         server_preproc=args.server_preproc,
         global_warmup=args.global_warmup,
         per_shape_warmup=args.per_shape_warmup,
+        compile_gdino=args.compile_gdino,
+        compile_backend=args.compile_backend,
     )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 

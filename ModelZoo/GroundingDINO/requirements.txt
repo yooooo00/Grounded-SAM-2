@@ -1,0 +1,16 @@
+torch==2.1.0
+torch_npu==2.1.0.post10
+openmim
+fairscale
+jsonlines
+nltk
+pycocoevalcap
+transformers==4.40.0
+numpy==1.23.0
+emoji
+ddd-dataset
+protobuf
+decorator
+psutil
+scipy
+git+https://github.com/lvis-dataset/lvis-api.git
