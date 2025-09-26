@@ -330,10 +330,20 @@ class MultiScaleDeformableAttention(nn.Module):
                 )
             )
     
-        if torch.cuda.is_available() and value.is_cuda:
-            halffloat = False
-            if value.dtype == torch.float16:
-                halffloat = True
+        device_type = getattr(getattr(value, 'device', None), 'type', None)
+        if device_type in ("cuda", "npu", "privateuseone"):
+            # MMCV's ms_deform_attn kernel expects fp32/fp16 tensors.
+            # When upstream runs in BF16 (common on NPU), convert inputs to fp16
+            # around the op and cast the output back to BF16 to preserve numerics.
+            restore_dtype = None
+            if value.dtype == torch.bfloat16:
+                restore_dtype = torch.bfloat16
+                cast_dtype = torch.float16
+                value = value.to(cast_dtype)
+                sampling_locations = sampling_locations.to(cast_dtype)
+                attention_weights = attention_weights.to(cast_dtype)
+            elif value.dtype not in (torch.float16, torch.float32):
+                # Fallback: use fp32 for uncommon dtypes
                 value = value.float()
                 sampling_locations = sampling_locations.float()
                 attention_weights = attention_weights.float()
@@ -347,8 +357,8 @@ class MultiScaleDeformableAttention(nn.Module):
                 self.im2col_step,
             )
 
-            if halffloat:
-                output = output.half()
+            if restore_dtype is not None:
+                output = output.to(restore_dtype)
         else:
             output = multi_scale_deformable_attn_pytorch(
                 value, spatial_shapes, sampling_locations, attention_weights
