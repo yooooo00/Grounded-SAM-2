@@ -75,29 +75,42 @@ def run_tests(
     # Optional: compile GroundingDINO (torch.compile / torchair backend)
     if compile_gdino:
         try:
+            import torch._dynamo  # type: ignore
+            # Allow partial compilation: unsupported parts fall back to eager
+            torch._dynamo.config.suppress_errors = True  # noqa: SLF001
+
             if compile_backend.lower() == "torchair":
+                # Compile hotspot submodule only to avoid tokenizer/backbone Python control flow
                 import torchair as tng  # type: ignore
                 from torchair.configs.compiler_config import CompilerConfig  # type: ignore
                 cfg = CompilerConfig()
                 cfg.experimental_config.frozen_parameter = True
                 cfg.experimental_config.tiling_schedule_optimize = True
                 npu_backend = tng.get_npu_backend(compiler_config=cfg)
-                # Try compile common submodules first; fallback to whole model
-                compiled_any = False
-                for sub in ["backbone", "encoder", "decoder", "language_model", "transformer"]:
-                    if hasattr(gdino, sub):
-                        setattr(gdino, sub, torch.compile(getattr(gdino, sub), dynamic=False, fullgraph=True, backend=npu_backend))
-                        try:
-                            tng.use_internal_format_weight(getattr(gdino, sub))
-                        except Exception:
-                            pass
-                        compiled_any = True
-                if not compiled_any:
-                    gdino = torch.compile(gdino, dynamic=False, fullgraph=True, backend=npu_backend)
+
+                if hasattr(gdino, "transformer"):
+                    gdino.transformer = torch.compile(
+                        gdino.transformer, dynamic=False, fullgraph=True, backend=npu_backend
+                    )
+                    try:
+                        tng.use_internal_format_weight(gdino.transformer)
+                    except Exception:
+                        pass
+                    print("[compile] compiled module: transformer (torchair)")
+                else:
+                    # Fallback to partial model compile (may graph-break often)
+                    gdino = torch.compile(gdino, dynamic=False, fullgraph=False, backend=npu_backend)
+                    print("[compile] compiled model (partial, torchair)")
             else:
-                # Default to inductor reduce-overhead
-                torch._dynamo.config.suppress_errors = True  # noqa: SLF001
-                gdino = torch.compile(gdino, fullgraph=True, dynamic=False, mode="reduce-overhead")
+                # Inductor: allow graph breaks and compile hotspots
+                if hasattr(gdino, "transformer"):
+                    gdino.transformer = torch.compile(
+                        gdino.transformer, fullgraph=False, dynamic=False, mode="reduce-overhead"
+                    )
+                    print("[compile] compiled module: transformer (inductor)")
+                else:
+                    gdino = torch.compile(gdino, fullgraph=False, dynamic=False, mode="reduce-overhead")
+                    print("[compile] compiled model (partial, inductor)")
             print("[compile] GroundingDINO compiled with backend:", (compile_backend or "inductor"))
         except Exception as e:
             print("[compile] skip compile due to:", repr(e))
