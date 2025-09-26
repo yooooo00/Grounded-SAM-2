@@ -15,7 +15,8 @@ from grounding_dino.groundingdino.util.inference import load_model, predict as g
 from sam2.build_sam import build_sam2
 from sam2.sam2_image_predictor import SAM2ImagePredictor
 
-from torch_npu.contrib import transfer_to_npu
+# Deliberately do not import torch_npu.contrib.transfer_to_npu to keep
+# torch.compile (Dynamo) stable. Use explicit device='npu' instead.
 
 def autocast_ctx(device: str, enabled: bool = True, dtype=torch.bfloat16):
     if not enabled:
@@ -120,8 +121,8 @@ def run_tests(
     sam2 = build_sam2(sam_cfg, sam_ckpt, device=device)
     predictor = SAM2ImagePredictor(sam2)
     gdino.eval(); predictor.model.eval(); 
-    import torch as _torch
-    _torch.set_grad_enabled(False)
+    # import torch as _torch
+    torch.set_grad_enabled(False)
 
 
     # 选图
