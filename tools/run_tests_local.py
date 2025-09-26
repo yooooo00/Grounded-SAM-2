@@ -76,11 +76,11 @@ def run_tests(
     # Optional: compile GroundingDINO (torch.compile / torchair backend)
     if compile_gdino:
         try:
-            import torch._dynamo  # type: ignore
+            import torch._dynamo as torch_dynamo  # type: ignore
             # Allow partial compilation: unsupported parts fall back to eager
-            torch._dynamo.config.suppress_errors = True  # noqa: SLF001
+            torch_dynamo.config.suppress_errors = True  # noqa: SLF001
             # Enable capturing 0-d tensor scalar outputs used in size/steps (e.g., linspace/arange)
-            torch._dynamo.config.capture_scalar_outputs = True
+            torch_dynamo.config.capture_scalar_outputs = True
 
             if compile_backend.lower() == "torchair":
                 # Compile hotspot submodule only to avoid tokenizer/backbone Python control flow
