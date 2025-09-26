@@ -78,6 +78,8 @@ def run_tests(
             import torch._dynamo  # type: ignore
             # Allow partial compilation: unsupported parts fall back to eager
             torch._dynamo.config.suppress_errors = True  # noqa: SLF001
+            # Enable capturing 0-d tensor scalar outputs used in size/steps (e.g., linspace/arange)
+            torch._dynamo.config.capture_scalar_outputs = True
 
             if compile_backend.lower() == "torchair":
                 # Compile hotspot submodule only to avoid tokenizer/backbone Python control flow
@@ -90,7 +92,7 @@ def run_tests(
 
                 if hasattr(gdino, "transformer"):
                     gdino.transformer = torch.compile(
-                        gdino.transformer, dynamic=False, fullgraph=True, backend=npu_backend
+                        gdino.transformer, dynamic=False, fullgraph=False, backend=npu_backend
                     )
                     try:
                         tng.use_internal_format_weight(gdino.transformer)
