@@ -187,6 +187,9 @@ class SAM2Base(torch.nn.Module):
             print(
                 "Image encoder compilation is enabled. First forward pass will be slow."
             )
+            import torch._dynamo                                                                                                                                                                                                  
+            torch._dynamo.config.suppress_errors = True 
+            
             self.image_encoder.forward = torch.compile(
                 self.image_encoder.forward,
                 mode="max-autotune",
